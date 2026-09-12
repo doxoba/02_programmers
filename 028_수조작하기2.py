@@ -13,10 +13,8 @@
 # ----------------------------------------
 # [제한사항]
 # - 2 ≤ `numLog`의 길이 ≤ 100,000
-
-
--100,000 ≤ `numLog[0]` ≤ 100,000
-1 ≤ `i` ≤ `numLog`의 길이인 모든 `i`에 대해 `|numLog[i] - numLog[i - 1]|`의 값은 1 또는 10입니다.
+#   -100,000 ≤ `numLog[0]` ≤ 100,000
+#    1 ≤ `i` ≤ `numLog`의 길이인 모든 `i`에 대해 `|numLog[i] - numLog[i - 1]|`의 값은 1 또는 10입니다.
 # ----------------------------------------
 # [입출력 예]
 # numLog | result
@@ -32,4 +30,82 @@
 # ---------------------------------------------------------
 # (여기에 내 풀이)
 
-# 메모:
+# 과거에 누군가가 wasd 문자열을 입력해서 숫자를 조작했고, 그 결과 기록이 numLog야. 근데 그 문자열을 잃어버렸어. 너가 복원해줘."
+# w == 1
+# s == -1
+# d == 10
+# a == -10
+
+
+def solution(numLog):
+    answer = ''
+    for i in range(1, len(numLog)):  # numLog 길이만큼 돌린다
+        diff = numLog[i] - numLog[i-1] # 두번째 글자를 알아내려면 첫번째 값에서 두번째 값을 빼가지고 w s d a 중 뭔지 알아야되니까 임시 바구니를 만드는것
+        if diff == 1:
+            answer = answer + "w"
+        elif diff == -1:
+            answer = answer + "s"
+        elif diff == 10:
+            answer = answer + "d"
+        elif diff == -10:
+            answer = answer + "a"
+    return answer
+
+print(solution([0, 1, 0, 10, 0, 1, 0, 10, 0, -1, -2, -1]))
+
+
+# 정수 배열 `numLog`가 주어집니다. 처음에 `numLog[0]`에서 부터 시작해 "w", "a", "s", "d"로 이루어진 문자열을 입력으로 받아 순서대로 다음과 같은 조작을 했다고 합시다.
+# - "w" : 수에 1을 더한다.
+# - "s" : 수에 1을 뺀다.
+# - "d" : 수에 10을 더한다.
+# - "a" : 수에 10을 뺀다.
+# 그리고 매번 조작을 할 때마다 결괏값을 기록한 정수 배열이 `numLog`입니다. 즉, `numLog[i]`는 `numLog[0]`로부터 총 `i`번의 조작을 가한 결과가 저장되어 있습니다.
+# 주어진 정수 배열 `numLog`에 대해 조작을 위해 입력받은 문자열을 return 하는 solution 함수를 완성해 주세요.
+
+# mapping 딕셔너리:
+def solution(numLog):
+    answer = ''
+    mapping = {1: "w", -1: "s", 10: "d", -10: "a"}
+    for i in range(1, len(numLog)):
+        diff = numLog[i] - numLog[i-1]
+        answer += mapping[diff]
+    return answer
+
+print(solution([0, 1, 0]))
+
+# 내 오답:
+#def solution(numLog):
+#    answer = ''
+#    for i in numLog:
+#        if i == 0:
+#            answer = answer + "w"
+#        elif i == -1:
+#            answer = answer + "s"
+#        elif i == 10:
+#            answer = answer + "d"
+#        elif i == -10:
+#            answer = answer + "a"
+#    return answer
+
+# 오답노트
+# -----------------------------------------------
+# ❓ 질문 28 : 수 조작하기 2 — numLog 배열로 wasd 문자열 복원하기
+# 😵 페인포인트 :
+#     1. 문제 방향을 반대로 이해함
+#        ("문자열을 입력받아" → 문자열도 입력인 줄 알았음)
+#     2. for i in numLog 로 값 자체를 봤는데,
+#        값 자체가 아니라 앞뒤 차이(diff)를 봐야 한다는 걸 몰랐음
+#     3. range(1, len(numLog)) 구조는 알았지만,
+#        왜 이 문제에 써야 하는지 연결이 안 됐음
+# 💡 풀이 :
+#     - numLog는 숫자 변화 기록 → 우리가 할 일은 문자열 역추적
+#     - 연속된 두 값의 차이(diff = numLog[i] - numLog[i-1])로 키 판별
+#     - i는 1부터 시작해야 i-1(이전값)과 비교 가능
+#     - diff == 1 → "w" / -1 → "s" / 10 → "d" / -10 → "a"
+# ✅ 팁 :
+#     - 함수 테스트 시 배열은 [] 로 감싸서 전달
+#       ex) print(solution([0, 1, 0, 10, ...]))
+#     - diff 같은 임시 변수는 같은 계산 반복을 줄이는 "바구니"
+#     - 딕셔너리로 if문 4개를 한 줄로 줄일 수도 있음
+#       mapping = {1: "w", -1: "s", 10: "d", -10: "a"}
+# -----------------------------------------------
