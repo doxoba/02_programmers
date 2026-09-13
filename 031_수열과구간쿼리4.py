@@ -37,8 +37,8 @@
 
 def solution(arr, queries):
 #    answer = 0  # 숫자가 아닌 배열을 꺼내는 거라 answer 지정 X
-    for i in queries:
-        s, e, k = i
+    for query in queries:
+        s, e, k = query
         for i in range(s,e+1):
             if i % k == 0:
                 arr[i] += 1
