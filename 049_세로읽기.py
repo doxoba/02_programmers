@@ -3,7 +3,9 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/181904
 # ---------------------------------------------------------
 # 문제:
-# 문자열 `my_string`과 두 정수 `m`, `c`가 주어집니다. `my_string`을 한 줄에 `m` 글자씩 가로로 적었을 때 왼쪽부터 세로로 `c`번째 열에 적힌 글자들을 문자열로 return 하는 solution 함수를 작성해 주세요.
+# 문자열 `my_string`과 두 정수 `m`, `c`가 주어집니다. 
+# `my_string`을 한 줄에 `m` 글자씩 가로로 적었을 때 
+# 왼쪽부터 세로로 `c`번째 열에 적힌 글자들을 문자열로 return 하는 solution 함수를 작성해 주세요.
 # ----------------------------------------
 # [제한사항]
 # - `my_string`은 영소문자로 이루어져 있습니다.
@@ -30,5 +32,26 @@
 # - 예제 2번의 `my_string`은 `m`이 1이므로 세로로 "programmers"를 적는 것과 같고 따라서 1열에 적힌 글자를 세로로 읽으면 programmers입니다. 따라서 "programmers"를 return 합니다.
 # ---------------------------------------------------------
 # (여기에 내 풀이)
+# 문자열 `my_string`과 두 정수 `m`, `c`가 주어집니다. 
+# `my_string`을 한 줄에 `m` 글자씩 가로로 적었을 때 
+# 왼쪽부터 세로로 `c`번째 열에 적힌 글자들을 문자열로 return 하는 solution 함수를 작성해 주세요.
+# 입력: 
+# 출력: 
+# 어떻게: 
+
+def Solution(my_string, m, c):
+    m = int(m)
+    c = int(c)
+    result = []
+    for i in range(c-1, len(my_string), m):
+        result.append(my_string[i])
+    return "".join(result)
+
+print(Solution("ihrhbakrfpndopljhygc", 4, 2))
+
+# 다른 사람의 코드
+
+def solution(s, m, c):
+    return s[c-1::m]
 
 # 메모:
